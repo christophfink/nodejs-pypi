@@ -1,16 +1,17 @@
 import os
 import hashlib
 import pathlib
+import stat
 import urllib.request
 import libarchive
 from email.message import EmailMessage
-from wheel.wheelfile import WheelFile
+from wheel.wheelfile import get_zipinfo_datetime, WheelFile
 from zipfile import ZipInfo, ZIP_DEFLATED
 from inspect import cleandoc
 
 
 # Versions to build if run as a script:
-BUILD_VERSIONS = ('14.19.3', '16.15.1', '18.4.0')
+BUILD_VERSIONS = ('20.19.5', '22.20.0', '24.9.0')
 
 # Suffix to append to the Wheel
 # For pre release versions this should be 'aN', e.g. 'a1'
@@ -59,12 +60,19 @@ if _mismatched_versions:
 
 
 class ReproducibleWheelFile(WheelFile):
-    def writestr(self, zinfo, *args, **kwargs):
-        if not isinstance(zinfo, ZipInfo):
+    def writestr(self, zinfo_or_arcname, *args, **kwargs):
+        if isinstance(zinfo_or_arcname, str):
+            zinfo_or_arcname = ZipInfo(
+                zinfo_or_arcname, date_time=get_zipinfo_datetime()
+            )
+            zinfo_or_arcname.compress_type = self.compression
+            zinfo_or_arcname.external_attr = (0o664 | stat.S_IFREG) << 16
+        if not isinstance(zinfo_or_arcname, ZipInfo):
+            print(zinfo_or_arcname)
             raise ValueError("ZipInfo required")
-        zinfo.date_time = (1980, 1, 1, 0, 0, 0)
-        zinfo.create_system = 3
-        super().writestr(zinfo, *args, **kwargs)
+        zinfo_or_arcname.date_time = (1980, 1, 1, 0, 0, 0)
+        zinfo_or_arcname.create_system = 3
+        super().writestr(zinfo_or_arcname, *args, **kwargs)
 
 
 def make_message(headers, payload=None):

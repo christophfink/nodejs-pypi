@@ -43,8 +43,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest]
-        nodejs-version: ['14.19.3', '16.15.1', '18.4.0']
-        python-version: ['3.7', '3.8', '3.9', '3.10']
+        nodejs-version: ['20.19.5', '22.20.0', '24.9.0']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
       - uses: actions/checkout@v3
@@ -90,8 +90,8 @@ jobs:
       fail-fast: false
       matrix:
         os-variant: [alpine, slim-buster, slim-bullseye]
-        python-version: ['3.7', '3.8', '3.9', '3.10']
-        nodejs-version: ['14.19.3', '16.15.1', '18.4.0']
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+        nodejs-version: ['20.19.5', '22.20.0', '24.9.0']
 
     steps:
       - uses: actions/checkout@v3
