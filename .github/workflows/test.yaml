@@ -89,7 +89,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os-variant: [alpine, slim-buster, slim-bullseye]
+        os-variant: [alpine, slim-bookworm, slim-trixie]
         python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
         nodejs-version: ['20.19.5', '22.20.0', '24.9.0']
 
