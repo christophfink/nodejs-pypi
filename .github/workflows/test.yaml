@@ -68,7 +68,7 @@ jobs:
       - name: Install Package (Mac OS)
         if: matrix.os == 'macos-latest'
         run: |
-            WHEELS_TO_INSTALL=$(find dist -name "*${{matrix.nodejs-version}}*py3*macosx*x86_64.whl")
+            WHEELS_TO_INSTALL=$(find dist -name "*${{matrix.nodejs-version}}*py3*macosx*arm64.whl")
             echo "WHEELS_TO_INSTALL=${WHEELS_TO_INSTALL}"
             pip install ${WHEELS_TO_INSTALL}
       - name: Install Package (Windows)
