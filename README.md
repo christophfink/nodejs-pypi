@@ -53,7 +53,7 @@ You can specify the Node.js version to install with:
 pip install nodejs-bin==<version>
 
 # Example:
-pip install nodejs-bin==16.15.1
+pip install nodejs-bin==24.9.0
 ```
 
 Command Line Usage
