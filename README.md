@@ -1,5 +1,14 @@
 # Node.js PyPI distribution
 
+<!-- badges -->
+[![stable version][stable-version-badge]][stable-version-link]
+[![downloads][downloads-pypi-badge]][downloads-pypi-link]
+<br />
+[![Unit tests][test-status-badge]][test-status-link]
+[![Coverage][coverage-badge]][coverage-link]
+<br />
+
+
 [Node.js][nodejs] is an open-source, cross-platform, back-end JavaScript runtime
 environment that runs on the V8 engine and executes JavaScript code outside a
 web browser. 
@@ -163,7 +172,17 @@ This Python package is licensed under a [MIT license][nodejs-pypi-license].
 
 
 
-<!--// links //-->
+<!-- links -->
+[coverage-badge]: https://codecov.io/gh/christophfink/nodejs-pypi/branch/main/graph/badge.svg?token=emlBDgnStv
+[coverage-link]: https://codecov.io/gh/christophfink/nodejs-pypi
+[downloads-pypi-badge]: https://static.pepy.tech/personalized-badge/nodejs-bin?period=total&units=international_system&left_color=grey&right_color=orange&left_text=Downloads
+[downloads-pypi-link]: https://pypi.org/project/nodejs-bin
+[stable-version-badge]: https://img.shields.io/pypi/v/nodejs-bin?label=Stable
+[stable-version-link]: https://github.com/christophfink/nodejs-pypi/releases
+[test-status-badge]: https://github.com/christophfink/nodejs-pypi/actions/workflows/test.yml/badge.svg
+[test-status-link]: https://github.com/christophfink/nodejs-pypi/actions/workflows/test.yml
+
+
 [nodejs]: https://nodejs.org/
 [nodejs-license]: https://raw.githubusercontent.com/nodejs/node/master/LICENSE
 [nodejs-releases]: https://nodejs.org/en/about/releases/
