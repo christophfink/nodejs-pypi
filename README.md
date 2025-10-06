@@ -167,7 +167,8 @@ The full list of versions is available on PyPI is here:
 ## Licenses
 
 Node.js is licensed under the [Node.js license][nodejs-license].
-This Python package is licensed under a [MIT license][nodejs-pypi-license].
+
+This Python package is licensed under an [MIT license][nodejs-pypi-license].
 
 
 
