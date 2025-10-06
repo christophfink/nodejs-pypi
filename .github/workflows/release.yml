@@ -91,7 +91,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: package-*
+          pattern: package-*
           path: dist/
           merge-multiple: true
 #       - uses: pypa/gh-action-pypi-publish@release/v1
@@ -108,7 +108,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: package-*
+          pattern: package-*
           path: dist/
           merge-multiple: true
       - uses: softprops/action-gh-release@v2
@@ -125,7 +125,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: package-*
+          pattern: package-*
           path: dist/
           merge-multiple: true
       - uses: softprops/action-gh-release@v2
