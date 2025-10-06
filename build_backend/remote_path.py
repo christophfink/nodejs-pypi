@@ -73,4 +73,8 @@ class RemotePath(pathlib.Path):
 
             self.cached_path.parent.mkdir(parents=True, exist_ok=True)
             with requests.get(self.remote_url) as response:
+                if response.status_code != 200:
+                    raise FileNotFoundError(
+                        f"HTTP {response.status_code}: {response.reason}"
+                    )
                 self.cached_path.write_bytes(response.content)
