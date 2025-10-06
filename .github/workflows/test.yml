@@ -49,11 +49,11 @@ jobs:
           python-version: '${{matrix.python_version}}'
           cache: 'pip'
 
-      - run: python -m pip install --prefer-binary .[tests]
+      - run: pip install build
 
-      - run: |
-          ls -alhtr C:/hostedtoolcache/windows/Python/*.*.*/*/lib/site-packages/nodejs/_node
-        continue-on-error: true
+      - run: python -m build .
+
+      - run: python -m pip install --prefer-binary .[tests]
 
       - run: python -m pytest
 
