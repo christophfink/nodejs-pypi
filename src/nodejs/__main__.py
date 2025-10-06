@@ -6,13 +6,8 @@
 
 import sys
 
-from . import node
-
-
-def main(*args):
-    """Wrap the Node.js JavaScript runtime environment."""
-    sys.exit(node.call(*args))
-
+from .node import Node
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    node = Node()
+    sys.exit(node.main(*sys.argv[1:]))

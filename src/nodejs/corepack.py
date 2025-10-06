@@ -4,6 +4,11 @@
 """Expose corepack’s binary."""
 
 
+__all__ = ["corepack"]
+
+
+import sys
+
 from .command_that_might_be_a_script import CommandThatMightBeAScript
 from .node_path import NODE_PATH
 
@@ -20,3 +25,10 @@ class Corepack(CommandThatMightBeAScript):
         / "dist"
         / f"{_command_name}.js"  # override for corepack ;)
     )
+
+
+corepack = Corepack()
+
+
+if __name__ == "__main__":
+    sys.exit(corepack.main(*sys.argv[1:]))
