@@ -50,6 +50,7 @@ class NodeJsDownloader:
             with tempfile.TemporaryDirectory() as temporary_directory:
                 with zipfile.ZipFile(archive) as z:
                     z.extractall(temporary_directory)
+                shutil.rmtree(self.destination_directory)
                 shutil.move(
                     (pathlib.Path(temporary_directory) / archive.stem).resolve(),
                     self.destination_directory.resolve(),
