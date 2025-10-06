@@ -102,7 +102,7 @@ class NodeJsDownloader:
                 node_platform=node_platform,
                 file_extension=file_extension,
             )
-            return node_download_url
+        return node_download_url
 
     @functools.cached_property
     def version(self):
