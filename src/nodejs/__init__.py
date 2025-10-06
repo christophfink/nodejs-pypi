@@ -9,15 +9,14 @@ __all__ = []
 
 import sys
 
-
 try:
     if "-m" not in sys.argv:
         from .corepack import corepack
         from .node import node
+        from .node_path import NODE_PATH as path
         from .npm import npm
         from .npx import npx
 
-        from .node_path import NODE_PATH as path
         node_version = __version__
 
         __all__ = [
