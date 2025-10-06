@@ -17,11 +17,18 @@ try:
         from .npm import npm
         from .npx import npx
 
+        from .node_path import NODE_PATH as path
+        node_version = __version__
+
         __all__ = [
             "corepack",
             "node",
             "npm",
             "npx",
+            "path",
+            "node_version",
+            "__version__",
         ]
+
 except ImportError:  # pragma: no cover
     pass
