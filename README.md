@@ -23,7 +23,7 @@ only official bits distributed by the official NodeJS maintainers from one of
 the following sources:
 
 * NodeJS official releases: <https://nodejs.org/en/download/releases/>
-* NodeJS "unofficial" builds: <https://github.com/nodejs/unofficial-builds/>
+* NodeJS ‘unofficial’ builds: <https://github.com/nodejs/unofficial-builds/>
 
 **This is intended for use within Python virtual environments and containers, it
 should probably not be used for global installation.**
