@@ -3,7 +3,6 @@
 <!-- badges -->
 [![stable version][stable-version-badge]][stable-version-link]
 [![downloads][downloads-pypi-badge]][downloads-pypi-link]
-<br />
 [![Unit tests][test-status-badge]][test-status-link]
 [![Coverage][coverage-badge]][coverage-link]
 <br />
