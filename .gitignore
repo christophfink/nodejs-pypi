@@ -28,3 +28,4 @@ junit.xml
 
 src/**/_node/*
 src/**/_node/**
+!src/**/_node/.keep
