@@ -32,6 +32,16 @@ class TestNodeJsNode:
         exit_code = nodejs.node.call(["--version"])
         assert exit_code == 0
 
+    def test_exit_code_success_run_arglist(self):
+        """Test the exit code of node."""
+        exit_code = nodejs.node.run(["--version"]).returncode
+        assert exit_code == 0
+
+    def test_exit_code_success_popen_arglist(self):
+        """Test the exit code of node."""
+        exit_code = nodejs.node.Popen(["--version"]).wait()
+        assert exit_code == 0
+
     def test_exit_code_error(self):
         """Test the exit code of node."""
         exit_code = nodejs.node.call("--eval", "process.exit(1)")
