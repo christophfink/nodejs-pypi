@@ -22,7 +22,6 @@ NODE_PLATFORM_BY_PYTHON_PLATFORM = {
     "macosx_13_5_x86_64": "darwin-x64",
     "macosx_13_5_arm64": "darwin-arm64",
     "manylinux_2_28_x86_64": "linux-x64",
-    "manylinux_2_28_armv71": "linux-armv71",
     "manylinux_2_28_aarch64": "linux-arm64",
     "musllinux_1_1_x86_64": "linux-x64-musl",
 }
