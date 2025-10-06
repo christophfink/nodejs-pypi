@@ -1,5 +1,4 @@
-Node.js PyPI distribution
-=========================
+# Node.js PyPI distribution
 
 [Node.js][nodejs] is an open-source, cross-platform, back-end JavaScript runtime
 environment that runs on the V8 engine and executes JavaScript code outside a
@@ -14,8 +13,8 @@ a [Python API](#python-api-usage).
 only official bits distributed by the official NodeJS maintainers from one of
 the following sources:
 
-* NodeJS official releases: https://nodejs.org/en/download/releases/
-* NodeJS "unofficial" builds: https://github.com/nodejs/unofficial-builds/
+* NodeJS official releases: <https://nodejs.org/en/download/releases/>
+* NodeJS "unofficial" builds: <https://github.com/nodejs/unofficial-builds/>
 
 **This is intended for use within Python virtual environments and containers, it
 should probably not be used for global installation.**
@@ -23,19 +22,17 @@ should probably not be used for global installation.**
 This PyPI distribution is provided by
 <https://github.com/samwillis/nodejs-pypi>.
 
-[nodejs]: https://nodejs.org/
-[pypi]: https://pypi.org/project/nodejs-bin/
 
-Install
--------
+## Install
 
-To install:
+To install, use pip:
 
 ```shell
 pip install nodejs-bin
 ```
 
-By default the command line `node`, `npm` and `npx` commands are not installed to prevent collisions with already installed Node.js versions. To install them:
+By default the command line `node`, `npm` and `npx` commands are not installed
+to prevent collisions with already installed Node.js versions. To install them:
 
 ```shell
 pip install 'nodejs-bin[cmd]'
@@ -77,9 +74,11 @@ npx
 Python API Usage
 ----------------
 
-`node-bin` has a simple Python API that wraps the Node.js command line with the [Python `subprocess`](https://docs.python.org/3/library/subprocess.html).
+`node-bin` has a simple Python API that wraps the Node.js command line with the
+[Python `subprocess`][python-docs-subprocess].
 
-For `node`, `npm` and `npx` there are `.call()`, `.run()` and `.Popen()` methods that match the equivalent `subprocess` methods.
+For `node`, `npm` and `npx` there are `.call()`, `.run()` and `.Popen()` methods
+that match the equivalent `subprocess` methods.
 
 To run Node.js from a Python program and return the exit code:
 
@@ -97,12 +96,11 @@ npx.call(['command', 'arg1', ...], **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
-[`subprocess.call()`](https://docs.python.org/3/library/subprocess.html#subprocess.call),
-passes though all `kwargs` and returns the exit code of the process.
+[`subprocess.call()`][python-docs-subprocess-call], passes though all `kwargs`
+and returns the exit code of the process.
 
 To run Node.js from a Python program and return a
-[CompletedProcess](https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess)
-object:
+[`CompletedProcess`][python-docs-subprocess-completed-process] object:
 
 ```python
 from nodejs import node, npm, npx
@@ -118,8 +116,8 @@ npx.run(['command', 'arg1', ...], **kwargs)
 ```
 
 The `run(args, **kwargs)` functions wrap
-[`subprocess.run()`](https://docs.python.org/3/library/subprocess.html#subprocess.run),
-passes though all `kwargs` and returns a `CompletedProcess`.
+[`subprocess.run()`][python-docs-subprocess-run], passes though all `kwargs` and
+returns a `CompletedProcess`.
 
 Additionally, to start a Node.js process and return a `subprocess.Popen` object, you can use the `Popen(args, **kwargs)` functions:
 
@@ -137,9 +135,8 @@ npx_process = npx.Popen(['command', 'arg1', ...], **kwargs)
 ```
 
 The `Popen(args, **kwargs)` functions wrap
-[`subprocess.Popen()`](https://docs.python.org/3/library/subprocess.html#subprocess.Popen),
-passes though all `kwargs` and returns a [`Popen`
-object](https://docs.python.org/3/library/subprocess.html#popen-objects).
+[`subprocess.Popen()`][python-docs-subprocess-popen], passes though all `kwargs`
+and returns a [`Popen` object][python-docs-subprocess-popen-objects].
 
 The `nodejs.node` api is also available as `nodejs.run` and `nodejs.call` and
 `nodejs.Popen`.
@@ -150,18 +147,31 @@ Finally, there are a number of convenient attributes on the `nodejs` module:
   * `nodejs.path`: the path to the Node.js executable.
 
 
-Versions
---------
+## Versions
 
 nodejs-bin offers Node.js *Current* and *LTS* (long-term support) versions. See
-the [Node.js Documentation](https://nodejs.org/en/about/releases/) for more
-information.
+the [Node.js Documentation][nodejs-releases] for more information.
 
 The full list of versions is available on PyPI is here:
 <https://pypi.org/project/nodejs-bin/#history>
 
 
-License
--------
+## Licenses
 
-The [Node.js license](https://raw.githubusercontent.com/nodejs/node/master/LICENSE).
+Node.js is licensed under the [Node.js license][nodejs-license].
+This Python package is licensed under a [MIT license][nodejs-pypi-license].
+
+
+
+<!--// links //-->
+[nodejs]: https://nodejs.org/
+[nodejs-license]: https://raw.githubusercontent.com/nodejs/node/master/LICENSE
+[nodejs-releases]: https://nodejs.org/en/about/releases/
+[nodejs-pypi-license]: LICENSE
+[pypi]: https://pypi.org/project/nodejs-bin/
+[python-docs-subprocess]: https://docs.python.org/3/library/subprocess.html
+[python-docs-subprocess-call]: https://docs.python.org/3/library/subprocess.html#subprocess.call
+[python-docs-subprocess-run]: https://docs.python.org/3/library/subprocess.html#subprocess.run
+[python-docs-subprocess-popen]: https://docs.python.org/3/library/subprocess.html#subprocess.Popen
+[python-docs-subprocess-completed-process]: https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
+[python-docs-subprocess-popen-objects]: https://docs.python.org/3/library/subprocess.html#popen-objects
