@@ -4,6 +4,11 @@
 """Expose npm’s binary."""
 
 
+__all__ = ["npm"]
+
+
+import sys
+
 from .command_that_might_be_a_script import CommandThatMightBeAScript
 from .node_path import NODE_PATH
 
@@ -20,3 +25,10 @@ class Npm(CommandThatMightBeAScript):
         / "bin"
         / f"{_command_name}-cli.js"
     )
+
+
+npm = Npm()
+
+
+if __name__ == "__main__":
+    sys.exit(npm.main(*sys.argv[1:]))

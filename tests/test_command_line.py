@@ -15,7 +15,7 @@ import nodejs
 class TestNodeJsMain:
     """Test nodejs.__main__."""
 
-    def test_exit_code_success(self):
+    def test_node_exit_code_success(self):
         """Test the exit code of node.__main__."""
         exit_code = subprocess.call(
             [
@@ -27,7 +27,7 @@ class TestNodeJsMain:
         )
         assert exit_code == 0
 
-    def test_exit_code_error(self):
+    def test_node_exit_code_error(self):
         """Test the exit code of node.__main__."""
         exit_code = subprocess.call(
             [
@@ -42,15 +42,21 @@ class TestNodeJsMain:
 
     def test_main_function(self):
         """Test the exit code of node.__main__."""
-        import nodejs.__main__
-
         try:
-            nodejs.__main__.main("--version")
+            nodejs.node.main("--version")
         except SystemExit as exception:
             if exception.code != 0:
                 raise
 
-    def test_version(self, capfd):
+    def test_node_main_function(self):
+        """Test the exit code of node.__main__."""
+        try:
+            nodejs.node.main("--version")
+        except SystemExit as exception:
+            if exception.code != 0:
+                raise
+
+    def test_main_version(self, capfd):
         """Test the output of node --version."""
         exit_code = subprocess.call(
             [
@@ -64,7 +70,7 @@ class TestNodeJsMain:
         assert exit_code == 0
         assert stdout.strip() == nodejs.__version__
 
-    def test_eval_stdout(self, capfd):
+    def test_main_eval_stdout(self, capfd):
         """Test whether passed-in code is run."""
         exit_code = subprocess.call(
             [
@@ -79,7 +85,7 @@ class TestNodeJsMain:
         assert exit_code == 0
         assert stdout.strip() == "hello"
 
-    def test_eval_stderr(self, capfd):
+    def test_main_eval_stderr(self, capfd):
         """Test whether passed-in code is run."""
         exit_code = subprocess.call(
             [
@@ -94,7 +100,7 @@ class TestNodeJsMain:
         assert exit_code == 0
         assert stderr.strip() == "hello"
 
-    def test_script_hello(self, capfd, script_file_hello_path):
+    def test_main_script_hello(self, capfd, script_file_hello_path):
         """Test running a script file."""
         exit_code = subprocess.call(
             [
@@ -116,7 +122,7 @@ class TestNodeJsMain:
             (["--foo=bar"]),
         ),
     )
-    def test_script_args(self, capfd, script_file_args_path, args):
+    def test_main_script_args(self, capfd, script_file_args_path, args):
         """Test running a script file."""
         exit_code = subprocess.call(
             [
@@ -130,3 +136,144 @@ class TestNodeJsMain:
         stdout, _ = capfd.readouterr()
         assert exit_code == 0
         assert stdout.strip() == args[0]
+
+    def test_node_version(self, capfd):
+        """Test the output of node --version."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.node",
+                "--version",
+            ]
+        )
+        stdout, _ = capfd.readouterr()
+        assert exit_code == 0
+        assert stdout.strip() == nodejs.__version__
+
+    def test_node_eval_stdout(self, capfd):
+        """Test whether passed-in code is run."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.node",
+                "--eval",
+                'console.log("hello")',
+            ]
+        )
+        stdout, _ = capfd.readouterr()
+        assert exit_code == 0
+        assert stdout.strip() == "hello"
+
+    def test_node_eval_stderr(self, capfd):
+        """Test whether passed-in code is run."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.node",
+                "--eval",
+                'console.error("hello")',
+            ]
+        )
+        _, stderr = capfd.readouterr()
+        assert exit_code == 0
+        assert stderr.strip() == "hello"
+
+    def test_node_script_hello(self, capfd, script_file_hello_path):
+        """Test running a script file."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.node",
+                script_file_hello_path,
+            ]
+        )
+        stdout, _ = capfd.readouterr()
+        assert exit_code == 0
+        assert stdout.strip() == "hello"
+
+    @pytest.mark.parametrize(
+        ("args",),
+        (
+            (["hello"],),
+            (["a", "b"],),
+            (["--foo=bar"]),
+        ),
+    )
+    def test_node_script_args(self, capfd, script_file_args_path, args):
+        """Test running a script file."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.node",
+                script_file_args_path,
+                *args,
+            ]
+        )
+        stdout, _ = capfd.readouterr()
+        assert exit_code == 0
+        assert stdout.strip() == args[0]
+
+    def test_npm_exit_code_success(self):
+        """Test the exit code of node.__main__."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.npm",
+                "--version",
+            ]
+        )
+        assert exit_code == 0
+
+    def test_npm_main_function(self):
+        """Test the exit code of node.__main__."""
+        try:
+            nodejs.npm.main("--version")
+        except SystemExit as exception:
+            if exception.code != 0:
+                raise
+
+    def test_npx_exit_code_success(self):
+        """Test the exit code of node.__main__."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.npx",
+                "--version",
+            ]
+        )
+        assert exit_code == 0
+
+    def test_npx_main_function(self):
+        """Test the exit code of node.__main__."""
+        try:
+            nodejs.npx.main("--version")
+        except SystemExit as exception:
+            if exception.code != 0:
+                raise
+
+    def test_corepack_exit_code_success(self):
+        """Test the exit code of node.__main__."""
+        exit_code = subprocess.call(
+            [
+                sys.executable,
+                "-m",
+                "nodejs.corepack",
+                "--version",
+            ]
+        )
+        assert exit_code == 0
+
+    def test_corepack_main_function(self):
+        """Test the exit code of node.__main__."""
+        try:
+            nodejs.corepack.main("--version")
+        except SystemExit as exception:
+            if exception.code != 0:
+                raise
