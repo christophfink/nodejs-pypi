@@ -31,7 +31,7 @@ jobs:
       - run: python -m build --sdist
       - uses: actions/upload-artifact@v4
         with:
-          name: package
+          name: sdist
           path: dist/*.tar.gz
 
   build_wheel:
@@ -59,7 +59,7 @@ jobs:
       - run: python -m build --wheel --config-setting target-platform="${{ matrix.platform }}"
       - uses: actions/upload-artifact@v4
         with:
-          name: package
+          name: wheel-${{ matrix.platform }}
           path: dist/*.whl
 
   merge-into-stable:
@@ -91,8 +91,9 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: package
+          name: "{sdist,wheel-*}"
           path: dist/
+          merge-multiple: true
 #       - uses: pypa/gh-action-pypi-publish@release/v1
 #         with:
 #           skip-existing: true
