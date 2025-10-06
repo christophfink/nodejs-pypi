@@ -6,6 +6,8 @@
 
 import re
 
+import pytest
+
 import nodejs
 
 from .working_directory import WorkingDirectory
@@ -44,3 +46,38 @@ class TestNodeJsNpm:
             nodejs.node.call("--eval", 'console.log(require("is-even")(43))')
             stdout, _ = capfd.readouterr()
             assert stdout.strip() == "false"
+
+    def test_missing_executable(self, node_path):
+        """Temporarily remove npm executable."""
+        try:
+            # rename node executable
+            for command in [
+                node_path / "bin" / "npm",
+                node_path / "npm.cmd",
+            ]:
+                try:
+                    command.rename(command.with_suffix(".disabled"))
+                except FileNotFoundError:
+                    pass
+
+            # clear functools.cached_property
+            nodejs.npm.__dict__.pop("_command", None)
+            nodejs.npm.__dict__.pop("_script_name", None)
+
+            # re-evaluate executable path
+            with pytest.raises(RuntimeError, match="Could not find npm executable"):
+                _ = nodejs.npm._command
+                _ = nodejs.npm._script_name
+        finally:
+            # restore original node executables
+            for command in [
+                node_path / "bin" / "npm",
+                node_path / "npm.cmd",
+            ]:
+                try:
+                    command.with_suffix(".disabled").rename(command)
+                except FileNotFoundError:
+                    pass
+
+            # clear functools.cached_property
+            nodejs.node.__dict__.pop("_command", None)
