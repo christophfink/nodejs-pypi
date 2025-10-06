@@ -12,11 +12,4 @@ class Npm(CommandThatMightBeAScript):
     """Expose npm’s binary."""
 
     _command_name = "npm"
-    _script_name = (
-        NODE_PATH
-        / "lib"
-        / "node_modules"
-        / f"{_command_name}"
-        / "bin"
-        / f"{_command_name}-cli.js"
-    )
+    _script_name = NODE_PATH / "lib" / "node_modules" / "npm" / "bin" / "npm-cli.js"

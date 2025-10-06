@@ -12,6 +12,4 @@ class Npx(CommandThatMightBeAScript):
     """Expose npx’s binary."""
 
     _command_name = "npx"
-    _script_name = (
-        NODE_PATH / "lib" / "node_modules" / "npm" / "bin" / f"{_command_name}-cli.js"
-    )
+    _script_name = NODE_PATH / "lib" / "node_modules" / "npm" / "bin" / "npx-cli.js"
