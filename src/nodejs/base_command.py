@@ -4,14 +4,13 @@
 """A base class for the commands exposed by nodejs."""
 
 
-import functools
 import subprocess
 
 
 class BaseCommand:
     """A base class for the commands exposed by nodejs."""
 
-    @functools.cached_property
+    @property
     def _command(self):
         raise NotImplementedError(f"Do not use {self.__class__.__name__} directly.")
 
