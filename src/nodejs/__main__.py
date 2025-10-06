@@ -4,10 +4,7 @@
 """Wraps the Node.js JavaScript runtime environment."""
 
 
-import sys
-
-from .node import Node
-
 if __name__ == "__main__":
-    node = Node()
+    import sys
+    from .node import node
     sys.exit(node.main(*sys.argv[1:]))
