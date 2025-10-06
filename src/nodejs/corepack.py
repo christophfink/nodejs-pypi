@@ -12,7 +12,6 @@ class Corepack(CommandThatMightBeAScript):
     """Expose corepack’s binary."""
 
     _command_name = "corepack"
-
     _script_name = (
         NODE_PATH
         / "lib"

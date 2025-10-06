@@ -15,17 +15,7 @@ class CommandThatMightBeAScript(BaseCommand):
     """Base class for the commands that might be scripts (npm, npx, corepack)."""
 
     _command_name = None
-
-    @functools.cached_property
-    def _script_name(self):
-        return (
-            NODE_PATH
-            / "lib"
-            / "node_modules"
-            / f"{self._command_name}"
-            / "bin"
-            / f"{self._command_name}-cli.js"  # override for corepack ;)
-        )
+    _script_name = None
 
     @functools.cached_property
     def _command(self):
