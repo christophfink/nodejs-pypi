@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=80.0.0", "wheel"]
+build-backend = "build_meta"
+backend-path = ["build_backend"]
+
+[project]
+name = "nodejs-bin"
+description = "Wraps the Node.js JavaScript runtime environment"
+readme = "README.md"
+
+authors = [
+    { name = "Sam Willis"},
+    { name = "Jacob Roberts" },
+    { name = "Robert Craigie" },
+    { name = "Christoph Fink" },
+]
+
+dependencies = [
+    "importlib_resources; python_version < '3.10'",
+]
+requires-python = ">=3.9"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+keywords = ["javascript"]
+license = "MIT"
+
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["black", "flake8", "flake8-bugbear", "flake8-pyproject", "isort",
+       "pydocstyle", "pylint"]
+tests = ["pytest", "pytest-cov"]
+
+
+[project.urls]
+Repository = "https://github.com/christophfink/nodejs-bin.git"
+"Change log" = "https://github.com/christophfink/nodejs-bin/blob/main/CHANGELOG.md"
+"Bug tracker" = "https://github.com/christophfink/nodejs-bin/issues"
+
+[tool.coverage.paths]
+equivalent_sources = [
+    "src/nodejs/",
+    ".virtualenv/lib/python*/site-packages/nodejs/",
+    "/opt/hostedtoolcache/Python/*/x64/lib/python*/site-packages/nodejs/",
+    "/Library/Frameworks/Python.framework/Versions/*/lib/python*/site-packages/nodejs/",
+    "C:/hostedtoolcache/windows/Python/*/x64/Lib/site-packages/nodejs/"
+]
+
+[tool.coverage.report]
+exclude_also = [
+    'if __name__ == .__main__.:',
+]
+
+[tool.flake8]
+exclude = ["build", "dist", ".virtualenv"]
+extent-ignore = ["E203", "E501", "E701"]
+extent-select = ["B950"]
+max-line-length = 88
+
+[tool.isort]
+profile = "black"
+skip = ["build", "dist", "node_modules", "vendor", ".virtualenv"]
+
+[tool.pylintrc]
+good-names = ["i", "j", "k", "e", "ex", "id", "Run", "_"]
+max-line-length = 88
+
+[tool.pytest.ini_options]
+addopts = "-p no:faulthandler --cov=nodejs --cov-report term-missing --cov-report xml --import-mode=importlib --junitxml=junit.xml -o junit_family=legacy"
+testpaths = ["tests"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["nodejs", "nodejs._node"]
+
+[tool.setuptools.dynamic]
+version = {attr = "nodejs.__version__"}
