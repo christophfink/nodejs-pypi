@@ -4,7 +4,11 @@
 """Expose node’s binary."""
 
 
+__all__ = ["node"]
+
+
 import functools
+import sys
 
 from .base_command import BaseCommand
 from .node_path import NODE_PATH
@@ -26,3 +30,10 @@ class Node(BaseCommand):
             except AssertionError:
                 continue
         raise RuntimeError("Could not find node executable.")
+
+
+node = Node()
+
+
+if __name__ == "__main__":
+    sys.exit(node.main(*sys.argv[1:]))

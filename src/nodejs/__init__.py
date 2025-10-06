@@ -6,22 +6,28 @@
 __version__ = "v24.9.0"
 __all__ = []
 
+
+import sys
+
 try:
-    from .corepack import Corepack
-    from .node import Node
-    from .npm import Npm
-    from .npx import Npx
+    if "-m" not in sys.argv:
+        from .corepack import corepack
+        from .node import node
+        from .node_path import NODE_PATH as path
+        from .npm import npm
+        from .npx import npx
 
-    corepack = Corepack()
-    node = Node()
-    npm = Npm()
-    npx = Npx()
+        node_version = __version__
 
-    __all__ = [
-        "corepack",
-        "node",
-        "npm",
-        "npx",
-    ]
+        __all__ = [
+            "corepack",
+            "node",
+            "npm",
+            "npx",
+            "path",
+            "node_version",
+            "__version__",
+        ]
+
 except ImportError:  # pragma: no cover
     pass

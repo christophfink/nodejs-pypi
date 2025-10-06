@@ -31,3 +31,7 @@ class BaseCommand:
         if len(args) == 1 and isinstance(args[0], list):
             args = args[0]
         return subprocess.Popen(self._command + list(args), **kwargs)
+
+    def main(self, *args):
+        """Provide a command line interface to this command."""
+        return self.call(*args)
