@@ -43,7 +43,6 @@ jobs:
       matrix:
         platform:
           - win-x64
-          - win-x86
           - darwin-x64
           - darwin-arm64
           - linux-x64
