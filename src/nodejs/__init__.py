@@ -2,7 +2,8 @@
 
 """Wraps the Node.js JavaScript runtime environment."""
 
-__version__ = "v20.19.5"
+
+__version__ = "v24.9.0"
 __all__ = []
 
 try:
