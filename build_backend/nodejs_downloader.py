@@ -10,9 +10,14 @@ __all__ = ["NodeJsDownloader"]
 import functools
 import pathlib
 import shutil
-import tarfile
+import sys
 import tempfile
 import zipfile
+
+if sys.version_info > (3, 11):
+    import tarfile
+else:
+    from backports import tarfile
 
 from remote_path import RemotePath
 
@@ -52,7 +57,7 @@ class NodeJsDownloader:
         elif archive.suffix == ".xz":
             self.destination_directory.mkdir(parents=True, exist_ok=True)
 
-            def filter(member, path):
+            def _filter(member, path):
                 member = tarfile.tar_filter(member, path)
                 if member is not None:
                     try:  # remove top directory component
@@ -62,7 +67,7 @@ class NodeJsDownloader:
                 return member
 
             with tarfile.open(archive) as f:
-                f.extractall(self.destination_directory, filter=filter)
+                f.extractall(self.destination_directory, filter=_filter)
 
     def __exit__(self, exc_type, exc_value, traceback):
         """Exit context."""
