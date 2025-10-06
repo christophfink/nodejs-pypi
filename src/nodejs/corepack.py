@@ -18,12 +18,7 @@ class Corepack(CommandThatMightBeAScript):
 
     _command_name = "corepack"
     _script_name = (
-        NODE_PATH
-        / "lib"
-        / "node_modules"
-        / f"{_command_name}"
-        / "dist"
-        / f"{_command_name}.js"  # override for corepack ;)
+        NODE_PATH / "lib" / "node_modules" / "corepack" / "dist" / "corepack.js"
     )
 
 

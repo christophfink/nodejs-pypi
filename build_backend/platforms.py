@@ -35,6 +35,7 @@ PYTHON_PLATFORMS = list(PYTHON_PLATFORM_BY_NODE_PLATFORM.values())
 
 def local_platform():
     """Determine the best fit between available platforms."""
+    platform_tag = None
     system = platform.system()
     if system == "Linux":
         architecture = os.uname().machine
@@ -59,7 +60,7 @@ def local_platform():
 
 def override_platform(config_settings):
     """Add a build option to produce a binary wheel."""
-    node_platform, python_platform = target_platforms(config_settings)
+    _, python_platform = target_platforms(config_settings)
 
     config_settings = config_settings or {}
     if "--build_option" not in config_settings:

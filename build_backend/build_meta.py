@@ -23,11 +23,17 @@ __all__ = [
     "prepare_metadata_for_build_wheel",
 ]
 
+
 import pathlib
 
 import setuptools.build_meta
 from nodejs_downloader import NodeJsDownloader
 from platforms import override_platform, target_platforms
+from setuptools.build_meta import (
+    build_sdist,
+    get_requires_for_build_sdist,
+    prepare_metadata_for_build_wheel,
+)
 
 BUILD_REQUIREMENTS = [
     "build",
@@ -37,9 +43,6 @@ BUILD_REQUIREMENTS = [
     "xdg; python_version < '3.10'",
 ]
 NODEJS_DIRECTORY = pathlib.Path("src/nodejs/_node/")
-
-
-build_sdist = setuptools.build_meta.build_sdist
 
 
 def build_wheel(
@@ -58,20 +61,6 @@ def build_wheel(
     return wheel
 
 
-def get_requires_for_build_sdist(config_settings=None):
-    """Override setuptools.build_meta."""
-    return []
-
-
 def get_requires_for_build_wheel(config_settings=None):
     """Override setuptools.build_meta."""
     return BUILD_REQUIREMENTS
-
-
-def prepare_metadata_for_build_wheel(metadata_directory, config_settings=None):
-    """Override setuptools.build_meta."""
-    config_settings = override_platform(config_settings)
-    metadata = setuptools.build_meta.prepare_metadata_for_build_wheel(
-        metadata_directory, config_settings
-    )
-    return metadata
