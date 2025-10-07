@@ -86,7 +86,7 @@ jobs:
       - uses: jirutka/setup-alpine@v1
         with:
           arch: ${{ matrix.arch }}
-          packages: python3
+          packages: python3 py3-pip-tools
 
       - run: pip install build
         shell: alpine.sh {0}
