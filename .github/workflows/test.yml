@@ -92,6 +92,7 @@ jobs:
           python -m venv .virtualenv
           source .virtualenv/bin/activate
           pip install build
+          python -c 'import os; import platform; print(platform.system(), os.uname().machine, platform.libc_ver());'
           python -m build .
           python -m pip install .[tests]
         shell: alpine.sh {0}
