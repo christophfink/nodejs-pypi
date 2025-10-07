@@ -35,9 +35,8 @@ With [`build`][python-build] available, navigate to the source directory and run
 python -m build
 ```
 
-The build backend (in [`/build_backend/`][build-backend]) determines the local
-architecture and downloads the appropriate Node.js package, which it then
-includes in the wheel.
+The [build backend][build-backend] determines the local architecture and
+downloads the appropriate Node.js package, which it then includes in the wheel.
 
 If you intend to package for a different architecture, pass in the argument
 `--config-setting target-platform="TARGET_PLATFORM"`, where `TARGET_PLATFORM` is
@@ -49,9 +48,8 @@ python -m build --wheel --config-setting target-platform="win-x64"
 ```
 
 As architectures are changing over time, and the set of available options
-depends on availability from both projects, no definite list can be decided,
-check [`build_backend/platforms.py`][build-backend-platforms] for a current
-list.
+depends on what both projects support, no definite list can be made, check
+[`build_backend/platforms.py`][build-backend-platforms] for a current list.
 
 
 ## Running unit tests
