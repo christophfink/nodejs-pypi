@@ -91,6 +91,7 @@ jobs:
       - run: |
           python -m venv .virtualenv
           source .virtualenv/bin/activate
+          python -m build .
           python -m pip install .[tests]
         shell: alpine.sh {0}
 
