@@ -8,7 +8,8 @@ This document is intended to inform maintainers, see the [README][readme] for
 rationale and usage instructions.
 
 Previous versions of the packaging backend for `nodejs-bin` were based on the
-work of the creators of the [Zig language][zig-ziglang], see [the original][zig-pypi].
+work of the creators of the [Zig language][ziglang], see [the
+original][zig-pypi].
 
 The current version is a rewrite from scratch that focusses on maintainability:
 it does not generated code on the fly, and relies on an [in-tree build-backend,
@@ -82,7 +83,7 @@ successfully and maintainers approve of the changeset.
 [nodejs-platforms]: https://github.com/nodejs/node/blob/main/BUILDING.md#platform-list
 [nodejs]: https://nodejs.org/
 [packaging-pyproject]: https://packaging.python.org/en/latest/specifications/pyproject-toml/
-[pep517-intree-build-backend]: https://peps.python.org/pep-0517/#:~:text=In%2Dtree%20build%20backends,-In%20certain%20circumstances&text=Project%2Dspecific%20backends%2C%20typically%20consisting,%E2%80%9Cin%2Dtree%20backends%E2%80%9D)
+[pep517-intree-build-backend]: https://peps.python.org/pep-0517/#build-backend-interface
 [python-build]: https://build.pypa.io/en/stable/index.html
 [python-pip]: https://pip.pypa.io/en/stable/
 [python-platform-tag]: https://packaging.python.org/en/latest/specifications/platform-compatibility-tags/
