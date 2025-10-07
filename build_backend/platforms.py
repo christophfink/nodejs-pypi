@@ -24,6 +24,7 @@ NODE_PLATFORM_BY_PYTHON_PLATFORM = {
     "manylinux_2_28_x86_64": "linux-x64",
     "manylinux_2_28_aarch64": "linux-arm64",
     "musllinux_1_1_x86_64": "linux-x64-musl",
+    "musllinux_1_1_aarch64": "linux-arm64-musl",
 }
 NODE_PLATFORMS = list(NODE_PLATFORM_BY_PYTHON_PLATFORM.values())
 
@@ -42,7 +43,7 @@ def local_platform():
         libc = platform.libc_ver()[0]
         if libc == "glibc":
             platform_tag = f"manylinux_2_28_{architecture}"
-        elif libc == "musl":
+        else:  # alpine does not report platform.libc_ver()
             platform_tag = f"musllinux_1_1_{architecture}"
     elif system == "Darwin":
         architecture = os.uname().machine

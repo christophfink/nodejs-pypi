@@ -74,9 +74,5 @@ max-line-length = 88
 addopts = "-p no:faulthandler --cov=nodejs --cov-report term-missing --cov-report xml --import-mode=importlib --junitxml=junit.xml -o junit_family=legacy"
 testpaths = ["tests"]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-packages = ["nodejs", "nodejs._node"]
-
 [tool.setuptools.dynamic]
 version = {attr = "nodejs.__version__"}

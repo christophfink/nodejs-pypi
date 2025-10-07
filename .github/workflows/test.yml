@@ -21,8 +21,8 @@ jobs:
     uses: ./.github/workflows/lint.yml
     secrets: inherit
 
-  test:
-    name: Run tests (${{ matrix.os }}, Python ${{ matrix.python_version }}
+  test-on-default-runners:
+    name: Run tests (${{ matrix.os }}, Python ${{ matrix.python_version }})
     needs: lint
     runs-on: ${{ matrix.os }}
     strategy:
@@ -41,8 +41,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - uses: actions/setup-python@v5
         with:
@@ -65,3 +63,36 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  test-on-alpine-runners:
+    name: Run tests (alpine-x86_64)
+    needs: lint
+    runs-on: ubuntu-latest
+    container: alpine:latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: apk add --no-cache bash git curl gpg python3 py3-pip-tools
+
+      - run: |
+          python -m venv .virtualenv
+          source .virtualenv/bin/activate
+          python -m pip install .[tests]
+          python -m pytest
+
+      - uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - uses: codecov/test-results-action@v1
+        if: ${{ !cancelled() }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  # combine dependencies on multiple test-matrices into one proxy-job
+  test:
+    needs: [test-on-default-runners, test-on-alpine-runners]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All tests have passed successfully"
