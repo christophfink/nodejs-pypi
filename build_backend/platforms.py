@@ -58,8 +58,9 @@ def local_platform():
     return platform_tag
 
 
-def override_platform(config_settings):
+def override_platform(config_settings=None):
     """Add a build option to produce a binary wheel."""
+    config_settings = config_settings or {}
     _, python_platform = target_platforms(config_settings)
 
     config_settings = config_settings or {}
@@ -70,8 +71,9 @@ def override_platform(config_settings):
     return config_settings
 
 
-def target_platforms(config_settings):
+def target_platforms(config_settings=None):
     """Determine node and python target platforms from config_settings."""
+    config_settings = config_settings or {}
     try:
         target_platform = config_settings["target-platform"]
         if target_platform in PYTHON_PLATFORMS:
