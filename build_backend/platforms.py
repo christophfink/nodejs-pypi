@@ -92,6 +92,7 @@ def target_platforms(config_settings=None):
             )
     except (KeyError, TypeError):
         python_platform = local_platform()
+        print(python_platform)
         node_platform = NODE_PLATFORM_BY_PYTHON_PLATFORM[python_platform]
 
     return node_platform, python_platform
