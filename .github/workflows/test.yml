@@ -21,8 +21,8 @@ jobs:
     uses: ./.github/workflows/lint.yml
     secrets: inherit
 
-  test:
-    name: Run tests (${{ matrix.os }}, Python ${{ matrix.python_version }}
+  test-on-default-runners:
+    name: Run tests (${{ matrix.os }}, Python ${{ matrix.python_version }})
     needs: lint
     runs-on: ${{ matrix.os }}
     strategy:
@@ -65,3 +65,53 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  test-on-alpine-runners:
+    name: Run tests (alpine-${{ matrix.arch }})
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        arch:
+          - x86_64
+          - x86
+          - aarch64
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - uses: jirutka/setup-alpine@v1
+        with:
+          arch: ${{ matrix.arch }}
+          packages: python3
+
+      - run: pip install build
+        shell: alpine.sh {0}
+
+      - run: python -m build .
+        shell: alpine.sh {0}
+
+      - run: python -m pip install --prefer-binary .[tests]
+        shell: alpine.sh {0}
+
+      - run: python -m pytest
+        shell: alpine.sh {0}
+
+      - uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - uses: codecov/test-results-action@v1
+        if: ${{ !cancelled() }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  # combine dependencies on multiple test-matrices into one proxy-job
+  test:
+    needs: [test-on-default-runners, test-on-alpine-runners]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All tests have passed successfully"
