@@ -41,8 +41,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - uses: actions/setup-python@v5
         with:
@@ -74,8 +72,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - run: apk add --no-cache python3 py3-pip-tools
 
