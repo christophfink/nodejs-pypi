@@ -42,7 +42,7 @@ def local_platform():
         libc = platform.libc_ver()[0]
         if libc == "glibc":
             platform_tag = f"manylinux_2_28_{architecture}"
-        elif libc == "musl":
+        else:  # alpine does not report platform.libc_ver()
             platform_tag = f"musllinux_1_1_{architecture}"
     elif system == "Darwin":
         architecture = os.uname().machine
