@@ -132,7 +132,7 @@ That means, `python -m nodejs` is equivalent to `python -m nodejs.node`.*
 [Python `subprocess`][python-docs-subprocess].
 
 For `node`, `npm`, `npx`, and `corepack` there are `.call()`, `.run()` and
-`.Popen()` methods that match the equivalent `subprocess` methods.
+`.Popen()` methods that match the respective `subprocess` methods.
 
 
 #### `node.call()`, `npm.call()`, `npx.call()`, and `corepack.call()`
@@ -157,7 +157,7 @@ corepack.call('command', 'arg1', …, **kwargs)
 
 The `call(args, **kwargs)` functions wrap
 [`subprocess.call()`][python-docs-subprocess-call], pass all `kwargs` through to
-`subprocess.call` and return the respective exit codes of the processes.
+`subprocess.call` and return the exit codes of the processes.
 
 
 #### `node.run()`, `npm.run()`, `npx.run()`, `corepack.run()`
@@ -183,7 +183,7 @@ corepack.run('command', 'arg1', …, **kwargs)
 
 The `call(args, **kwargs)` functions wrap
 [`subprocess.run()`][python-docs-subprocess-run], pass all `kwargs` through to
-`subprocess.run` and return the respective exit codes of the processes.
+`subprocess.run` and return the exit codes of the processes.
 
 
 
@@ -212,8 +212,7 @@ corepack_process = corepack.Popen('command', 'arg1', …, **kwargs)
 
 The `call(args, **kwargs)` functions wrap
 [`subprocess.Popen()`][python-docs-subprocess-Popen], pass all `kwargs` through
-to `subprocess.Popen` and return the respective [`Popen`
-objects][python-docs-subprocess-popen-objects].
+to `subprocess.Popen` and return [`Popen` objects][python-docs-subprocess-popen-objects].
 
 
 
