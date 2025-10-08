@@ -122,8 +122,8 @@ python -m nodejs.corepack
 ```
 
 *For legacy reasons, the root module of the package can be called, as well. It
-wraps `node`. That means, `python -m nodejs` is equivalent to `python -m
-nodejs.node`.*
+wraps `node`. <br/>
+That means, `python -m nodejs` is equivalent to `python -m nodejs.node`.*
 
 
 ### Python API Usage
