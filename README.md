@@ -21,8 +21,8 @@ line](#command-line-usage) and a [Python API](#python-api-usage).
 official Node.js releases, only, which it acquires from one of the following
 sources:
 
-* NodeJS official releases: <https://nodejs.org/en/download/releases/>
-* NodeJS ‘unofficial’ builds: <https://github.com/nodejs/unofficial-builds/>
+* Node.js official releases: <https://nodejs.org/en/download/releases/>
+* Node.js ‘unofficial’ builds: <https://github.com/nodejs/unofficial-builds/>
 
 **This package is intended for use within Python virtual environments and
 containers, it should probably not be used for global installation.**
@@ -34,7 +34,7 @@ This PyPI distribution is provided by
 ## Installation
 
 `nodejs-bin` can be installed using `pip`, `uv`, `poetry`, or any other Python
-package manager that can use the [PyPi][pypi] package repository or supports
+package manager that can use the [PyPi package repository][pypi] or supports
 `git+` or `https:` source URIs.
 
 For example, to use `pip` to install `nodejs-bin` from PyPi, use:
@@ -69,8 +69,9 @@ upstream releases.
 You can pin your installation to a specific version by adding `==` and a version
 string to the package name, or `@` and a tag name (equal to the version string)
 to the `git+` package source URL. `https:` source URLs, at least in the form
-described above, already contain a reference to a tag. The following three
-commands are functionally equivalent:
+described above, already contain a reference to a tag.
+
+The following three commands are functionally equivalent:
 
 ```
 pip install nodejs-bin==22.20.0
@@ -86,12 +87,12 @@ Optionally, `nodejs-bin` can provide the commands `node`, `npm`, and `npx`.
 **Warning:** these shorthands are not installed by default, as they collide with
 potentially already installed Node.js (e.g., at a system-wide level). To avoid
 collisions, it is preferred to run the modules’ `__main__`. To run `node`, for
-install, use `python -m nodejs.node`, [see below][#command-line-usage].
+install, use `python -m nodejs.node`, [see below](#command-line-usage).
 
-There are, however, cases where using the Node.js binaries installed by `nodejs-bin`
-outside Python. If you have read the warning above, install shorthands for the
-command line utilities `node`, `npm`, and `npx` by adding the optional
-dependency group `cmd` to the package identifier:
+There are, however, cases where using the Node.js binaries installed by
+`nodejs-bin` outside Python is convenient. If you have read the warning above,
+install shorthands for the command line utilities `node`, `npm`, and `npx` by
+adding the optional dependency group `cmd` to the package identifier:
 
 ```
 pip install 'nodejs-bin[cmd]'
@@ -103,13 +104,13 @@ pip install 'nodejs-bin[cmd]'
 
 ### Command line usage
 
-To run node from the command line, use:
+To run `node` from the command line, use:
 
 ```
 python -m nodejs.node
 ```
 
-`npm` and `npx` are also available as `nodejs.npm` and `nodejs.npx`:
+`npm` and `npx` are available as `nodejs.npm` and `nodejs.npx`:
 
 ```
 python -m nodejs.npm
@@ -118,7 +119,7 @@ python -m nodejs.npx
 
 *For legacy reasons, the root module of the package can be called, as well. It
 wraps `node`. That means, `python -m nodejs` is equivalent to `python -m
-nodejs.node`.
+nodejs.node`.*
 
 
 ### Python API Usage
@@ -138,13 +139,13 @@ To run Node.js from a Python program and return the exit code:
 from nodejs import node, npm, npx
 
 # Run Node.js and return the exit code.
-node.call('script.js', 'arg1', ..., **kwargs)
+node.call('script.js', 'arg1', …, **kwargs)
 
 # Run npm and return the exit code.
-npm.call('command', 'arg1', ..., **kwargs)
+npm.call('command', 'arg1', …, **kwargs)
 
 # Run npx and return the exit code.
-npx.call('command', 'arg1', ..., **kwargs)
+npx.call('command', 'arg1', …, **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
@@ -161,13 +162,13 @@ To run Node.js from a Python program and return a
 from nodejs import node, npm, npx
 
 # Run Node.js and return a CompletedProcess object.
-node.run('script.js', 'arg1', ..., **kwargs)
+node.run('script.js', 'arg1', …, **kwargs)
 
 # Run npm and return a CompletedProcess object.
-npm.run('command', 'arg1', ..., **kwargs)
+npm.run('command', 'arg1', …, **kwargs)
 
 # Run npx and return a CompletedProcess object.
-npx.run('command', 'arg1', ..., **kwargs)
+npx.run('command', 'arg1', …, **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
@@ -186,13 +187,13 @@ object][python-docs-subprocess-popen-objects], you can use the `Popen(args,
 from nodejs import node, npm, npx
 
 # Start Node.js and return the Popen object.
-node_process = node.Popen('script.js', 'arg1', ..., **kwargs)
+node_process = node.Popen('script.js', 'arg1', …, **kwargs)
 
 # Start npm and return the Popen object.
-npm_process = npm.Popen('command', 'arg1', ..., **kwargs)
+npm_process = npm.Popen('command', 'arg1', …, **kwargs)
 
 # Start npx and return the Popen object.
-npx_process = npx.Popen('command', 'arg1', ..., **kwargs)
+npx_process = npx.Popen('command', 'arg1', …, **kwargs)
 ```
 
 
