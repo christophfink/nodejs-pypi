@@ -84,7 +84,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: apk add --no-cache bash git curl gpg
+      - run: apk add --no-cache bash git curl gpg libstdc++
 
       - run: |
           python -m venv .virtualenv
