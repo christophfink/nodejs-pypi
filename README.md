@@ -39,21 +39,21 @@ package manager that can use the [PyPi package repository][pypi] or supports
 
 For example, to use `pip` to install `nodejs-bin` from PyPi, use:
 
-```
+```shell
 pip install nodejs-bin
 ```
 
 Similarly, to install the package directly from GitHub, into an [initialised `uv`
 project][uv-project] directory, run:
 
-```
+```shell
 uv add nodejs-bin@git+https://github.com/christophfink/nodejs-pypi.git
 ```
 
 Finally, to add `nodejs-bin` to a [poetry project][poetry-project], using an
 https package URL, run:
 
-```
+```shell
 poetry add nodejs-bin@https://github.com/christophfink/nodejs-pypi/archive/refs/tags/v24.9.0.tar.gz
 ```
 
@@ -73,9 +73,15 @@ described above, already contain a reference to a tag.
 
 The following three commands are functionally equivalent:
 
-```
+```shell
 pip install nodejs-bin==22.20.0
+```
+
+```shell
 pip install nodejs-bin@git+https://github.com/christophfink/nodejs-bin.git@22.20.0
+```
+
+```shell
 pip install nodejs-bin@https://github.com/christophfink/nodejs-pypi/archive/refs/tags/v22.20.0.tar.gz
 ```
 
@@ -94,7 +100,7 @@ There are, however, cases where using the Node.js binaries installed by
 install shorthands for the command line utilities `node`, `npm`, and `npx` by
 adding the optional dependency group `cmd` to the package identifier:
 
-```
+```shell
 pip install 'nodejs-bin[cmd]'
 ```
 
@@ -106,22 +112,22 @@ pip install 'nodejs-bin[cmd]'
 
 To run `node` from the command line, use:
 
-```
+```shell
 python -m nodejs.node
 ```
 
 `npm`, `npx`, and `corepack` are available as `nodejs.npm`, `nodejs.npx`, and
 `nodejs.corepack`, respectively:
 
-```
+```shell
 python -m nodejs.npm
 ```
 
-```
+```shell
 python -m nodejs.npx
 ```
 
-```
+```shell
 python -m nodejs.corepack
 ```
 
