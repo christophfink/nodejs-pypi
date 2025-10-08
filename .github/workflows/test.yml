@@ -28,11 +28,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: 
+        os:
           - ubuntu-latest
           - windows-latest
           - macos-latest
         python_version:
+          - '3.14'
           - '3.13'
           - '3.12'
           - '3.11'
@@ -65,15 +66,25 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   test-on-alpine-runners:
-    name: Run tests (alpine-x86_64)
+    name: Run tests (alpine-x86_64, Python ${{ matrix.python_version}})
     needs: lint
     runs-on: ubuntu-latest
-    container: alpine:latest
+    container: python:${{ matrix.python_version }}-alpine
+    strategy:
+      fail-fast: false
+      matrix:
+        python_version:
+          - '3.14'
+          - '3.13'
+          - '3.12'
+          - '3.11'
+          - '3.10'
+          - '3.9'
 
     steps:
       - uses: actions/checkout@v4
 
-      - run: apk add --no-cache bash git curl gpg python3 py3-pip-tools
+      - run: apk add --no-cache bash git curl gpg libstdc++
 
       - run: |
           python -m venv .virtualenv
@@ -82,11 +93,6 @@ jobs:
           python -m pytest
 
       - uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-      - uses: codecov/test-results-action@v1
-        if: ${{ !cancelled() }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
