@@ -11,7 +11,7 @@ from .node import Node
 from .node_path import NODE_PATH
 
 
-class CommandThatMightBeAScript(BaseCommand):
+class MaybeScript(BaseCommand):
     """Base class for the commands that might be scripts (npm, npx, corepack)."""
 
     _command_name = None
@@ -19,7 +19,15 @@ class CommandThatMightBeAScript(BaseCommand):
 
     @functools.cached_property
     def _command(self):
-        assert self._command_name is not None
+        try:
+            assert self._command_name is not None
+            assert self._script_name is not None
+        except AssertionError:
+            raise NotImplementedError(
+                "Do not use MaybeScript directly. "
+                "Rather, inherit from it and define the child class’ "
+                "_command_name and _script_name attributes."
+            )
         try:
             command = NODE_PATH / "bin" / f"{self._command_name}"
             assert command.is_file() or command.is_symlink()

@@ -9,11 +9,11 @@ __all__ = ["npm"]
 
 import sys
 
-from .command_that_might_be_a_script import CommandThatMightBeAScript
+from .maybe_script import MaybeScript
 from .node_path import NODE_PATH
 
 
-class Npm(CommandThatMightBeAScript):
+class Npm(MaybeScript):
     """Expose npm’s binary."""
 
     _command_name = "npm"
