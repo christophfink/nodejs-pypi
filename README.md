@@ -115,9 +115,13 @@ python -m nodejs.node
 
 ```
 python -m nodejs.npm
+```
 
+```
 python -m nodejs.npx
+```
 
+```
 python -m nodejs.corepack
 ```
 
