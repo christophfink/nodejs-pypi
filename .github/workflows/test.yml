@@ -96,11 +96,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
-      - uses: codecov/test-results-action@v1
-        if: ${{ !cancelled() }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
   # combine dependencies on multiple test-matrices into one proxy-job
   test:
     needs: [test-on-default-runners, test-on-alpine-runners]
