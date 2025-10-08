@@ -18,7 +18,7 @@ class TestNodeJsMaybeScript:
         """Test the exit code of node."""
         with pytest.raises(NotImplementedError):
             nodejs.maybe_script.MaybeScript().call()
-    
+
     def test_not_implemented_on_poorly_defined_children(self):
         class _PoorlyDefinedChild(nodejs.maybe_script.MaybeScript):
             pass
@@ -31,7 +31,7 @@ class TestNodeJsMaybeScript:
 
         with pytest.raises(NotImplementedError):
             _PoorlyDefinedChild().call()
-        
+
         class _PoorlyDefinedChild(nodejs.maybe_script.MaybeScript):
             _command_name = "foobar"
 

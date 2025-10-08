@@ -13,9 +13,9 @@ class BaseCommand:
     @property
     def _command(self):
         raise NotImplementedError(
-            f"Do not use BaseCommand directly. "
+            "Do not use BaseCommand directly. "
             "Rather, inherit from it, and define the child class’ _command"
-        ) 
+        )
 
     def call(self, *args, **kwargs):
         """Run with the semantics of subprocess.call."""
