@@ -132,7 +132,7 @@ python -m nodejs.corepack
 ```
 
 *For legacy reasons, the root module of the package can be called, as well. It
-wraps `node`. <br/>
+wraps `node`.  
 That means, `python -m nodejs` is equivalent to `python -m nodejs.node`.*
 
 
