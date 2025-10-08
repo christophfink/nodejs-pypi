@@ -14,79 +14,123 @@ web browser.
 
 The [nodejs-bin][pypi] Python package redistributes Node.js so that it can be
 used as a dependency of Python projects. With `nodejs-bin` you can call
-`nodejs`, `npm` and `npx` from both the [command line](#command-line-usage) and
-a [Python API](#python-api-usage).
+`nodejs`, `npm`, `npx`, and `corepack` from both the [command
+line](#command-line-usage) and a [Python API](#python-api-usage).
 
-**Note: this is an unofficial Node.js distribution.** However, it _does_ use
-only official bits distributed by the official NodeJS maintainers from one of
-the following sources:
+**Note: this is an unofficial Node.js distribution.** However, it repackages
+official Node.js releases, only, which it acquires from one of the following
+sources:
 
 * NodeJS official releases: <https://nodejs.org/en/download/releases/>
 * NodeJS ‘unofficial’ builds: <https://github.com/nodejs/unofficial-builds/>
 
-**This is intended for use within Python virtual environments and containers, it
-should probably not be used for global installation.**
+**This package is intended for use within Python virtual environments and
+containers, it should probably not be used for global installation.**
 
 This PyPI distribution is provided by
-<https://github.com/samwillis/nodejs-pypi>.
+<https://github.com/christophfink/nodejs-pypi>.
 
 
-## Install
+## Installation
 
-To install, use pip:
+`nodejs-bin` can be installed using `pip`, `uv`, `poetry`, or any other Python
+package manager that can use the [PyPi][pypi] package repository or supports
+`git+` or `https:` source URIs.
 
-```shell
+For example, to use `pip` to install `nodejs-bin` from PyPi, use:
+
+```
 pip install nodejs-bin
 ```
 
-By default the command line `node`, `npm` and `npx` commands are not installed
-to prevent collisions with already installed Node.js versions. To install them:
+Similarly, to install the package directly from GitHub, into an [initialised `uv`
+project][uv-project] directory, run:
 
-```shell
+```
+uv add nodejs-bin@git+https://github.com/christophfink/nodejs-pypi.git
+```
+
+Finally, to add `nodejs-bin` to a [poetry project][poetry-project], using an
+https package URL, run:
+
+```
+poetry add nodejs-bin@https://github.com/christophfink/nodejs-pypi/archive/refs/tags/v24.9.0.tar.gz
+```
+
+
+### Select a specific version of Node.js
+
+`nodejs-bin`’s versioning aligns with Node.js’s. That means, when you install
+`nodejs-bin` at version 24.9.0, it comes with Node.js 24.9.0. We strive to
+publish new versions in a timely fashion, and always keep the [*current*,
+*active (LTS)* and *maintenance* versions][nodejs-releases] up-to-date with
+upstream releases.
+
+You can pin your installation to a specific version by adding `==` and a version
+string to the package name, or `@` and a tag name (equal to the version string)
+to the `git+` package source URL. `https:` source URLs, at least in the form
+described above, already contain a reference to a tag. The following three
+commands are functionally equivalent:
+
+```
+pip install nodejs-bin==22.20.0
+pip install nodejs-bin@git+https://github.com/christophfink/nodejs-bin.git@22.20.0
+pip install nodejs-bin@https://github.com/christophfink/nodejs-pypi/archive/refs/tags/v22.20.0.tar.gz
+```
+
+
+### Command line shorthands
+
+Optionally, `nodejs-bin` can provide the commands `node`, `npm`, and `npx`. 
+
+**Warning:** these shorthands are not installed by default, as they collide with
+potentially already installed Node.js (e.g., at a system-wide level). To avoid
+collisions, it is preferred to run the modules’ `__main__`. To run `node`, for
+install, use `python -m nodejs.node`, [see below][#command-line-usage].
+
+There are, however, cases where using the Node.js binaries installed by `nodejs-bin`
+outside Python. If you have read the warning above, install shorthands for the
+command line utilities `node`, `npm`, and `npx` by adding the optional
+dependency group `cmd` to the package identifier:
+
+```
 pip install 'nodejs-bin[cmd]'
 ```
 
-You can specify the Node.js version to install with:
 
-```shell
-pip install nodejs-bin==<version>
 
-# Example:
-pip install nodejs-bin==24.9.0
+## Quickstart
+
+### Command line usage
+
+To run node from the command line, use:
+
 ```
-
-Command Line Usage
-------------------
-
-To run Node.js from the command line, use:
-
-```shell
-python -m nodejs
+python -m nodejs.node
 ```
 
 `npm` and `npx` are also available as `nodejs.npm` and `nodejs.npx`:
 
-```shell
+```
 python -m nodejs.npm
 python -m nodejs.npx
 ```
 
-If you installed the optional command line commands with `pip install 'nodejs-bin[cmd]'` (see above), you can use them directly from the command line as you would normally with Node.js:
+*For legacy reasons, the root module of the package can be called, as well. It
+wraps `node`. That means, `python -m nodejs` is equivalent to `python -m
+nodejs.node`.
 
-```shell
-node
-npm
-npx
-```
 
-Python API Usage
-----------------
+### Python API Usage
 
-`node-bin` has a simple Python API that wraps the Node.js command line with the
+`node-bin` has a simple Python API that wraps the Node.js command line in a
 [Python `subprocess`][python-docs-subprocess].
 
 For `node`, `npm` and `npx` there are `.call()`, `.run()` and `.Popen()` methods
 that match the equivalent `subprocess` methods.
+
+
+#### `node.call()`, `npm.call()`, and `npx.call()`
 
 To run Node.js from a Python program and return the exit code:
 
@@ -94,18 +138,21 @@ To run Node.js from a Python program and return the exit code:
 from nodejs import node, npm, npx
 
 # Run Node.js and return the exit code.
-node.call(['script.js', 'arg1', ...], **kwargs)
+node.call('script.js', 'arg1', ..., **kwargs)
 
 # Run npm and return the exit code.
-npm.call(['command', 'arg1', ...], **kwargs)
+npm.call('command', 'arg1', ..., **kwargs)
 
 # Run npx and return the exit code.
-npx.call(['command', 'arg1', ...], **kwargs)
+npx.call('command', 'arg1', ..., **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
-[`subprocess.call()`][python-docs-subprocess-call], passes though all `kwargs`
-and returns the exit code of the process.
+[`subprocess.call()`][python-docs-subprocess-call], pass all `kwargs` through to
+`subprocess.call` and return the respective exit codes of the processes.
+
+
+#### `node.run()`, `npm.run()`, and `npx.run()`
 
 To run Node.js from a Python program and return a
 [`CompletedProcess`][python-docs-subprocess-completed-process] object:
@@ -113,54 +160,68 @@ To run Node.js from a Python program and return a
 ```python
 from nodejs import node, npm, npx
 
-# Run Node.js and return the exit code.
-node.run(['script.js', 'arg1', ...], **kwargs)
+# Run Node.js and return a CompletedProcess object.
+node.run('script.js', 'arg1', ..., **kwargs)
 
-# Run npm and return the exit code.
-npm.run(['command', 'arg1', ...], **kwargs)
+# Run npm and return a CompletedProcess object.
+npm.run('command', 'arg1', ..., **kwargs)
 
-# Run npx and return the exit code.
-npx.run(['command', 'arg1', ...], **kwargs)
+# Run npx and return a CompletedProcess object.
+npx.run('command', 'arg1', ..., **kwargs)
 ```
 
-The `run(args, **kwargs)` functions wrap
-[`subprocess.run()`][python-docs-subprocess-run], passes though all `kwargs` and
-returns a `CompletedProcess`.
+The `call(args, **kwargs)` functions wrap
+[`subprocess.run()`][python-docs-subprocess-run], pass all `kwargs` through to
+`subprocess.run` and return the respective exit codes of the processes.
 
-Additionally, to start a Node.js process and return a `subprocess.Popen` object, you can use the `Popen(args, **kwargs)` functions:
+
+
+#### `node.Popen()`, `npm.Popen()`, and `npx.Popen()`
+
+Additionally, to start a Node.js process and return a [`subprocess.Popen`
+object][python-docs-subprocess-popen-objects], you can use the `Popen(args,
+**kwargs)` functions:
 
 ```python
 from nodejs import node, npm, npx
 
 # Start Node.js and return the Popen object.
-node_process = node.Popen(['script.js', 'arg1', ...], **kwargs)
+node_process = node.Popen('script.js', 'arg1', ..., **kwargs)
 
 # Start npm and return the Popen object.
-npm_process = npm.Popen(['command', 'arg1', ...], **kwargs)
+npm_process = npm.Popen('command', 'arg1', ..., **kwargs)
 
 # Start npx and return the Popen object.
-npx_process = npx.Popen(['command', 'arg1', ...], **kwargs)
+npx_process = npx.Popen('command', 'arg1', ..., **kwargs)
 ```
 
-The `Popen(args, **kwargs)` functions wrap
-[`subprocess.Popen()`][python-docs-subprocess-popen], passes though all `kwargs`
-and returns a [`Popen` object][python-docs-subprocess-popen-objects].
 
-The `nodejs.node` api is also available as `nodejs.run` and `nodejs.call` and
-`nodejs.Popen`.
+The `call(args, **kwargs)` functions wrap
+[`subprocess.Popen()`][python-docs-subprocess-Popen], pass all `kwargs` through
+to `subprocess.Popen` and return the respective [`Popen`
+objects][python-docs-subprocess-popen-objects].
 
-Finally, there are a number of convenient attributes on the `nodejs` module:
 
-  * `nodejs.node_version`: the version of Node.js that is installed.
-  * `nodejs.path`: the path to the Node.js executable.
+
+#### Metadata
+
+Finally, the `nodejs` module exposes some attributes that contain convenient
+information about the packaged Node.js:
+
+`nodejs.node_version`
+: the version of Node.js that is installed.
+
+`nodejs.path`
+: the path to the Node.js executable.
 
 
 ## Versions
 
-nodejs-bin offers Node.js *Current* and *LTS* (long-term support) versions. See
-the [Node.js Documentation][nodejs-releases] for more information.
+nodejs-bin offers Node.js *current*, *active (LTS, long-term support)*, and
+*maintenance* versions. See the [Node.js Documentation][nodejs-releases] for
+more information.
 
-The full list of versions is available on PyPI is here:
+The full list of versions is available on PyPI can be found here:
 <https://pypi.org/project/nodejs-bin/#history>
 
 
@@ -187,6 +248,7 @@ This Python package is licensed under an [MIT license][nodejs-pypi-license].
 [nodejs-license]: https://raw.githubusercontent.com/nodejs/node/master/LICENSE
 [nodejs-releases]: https://nodejs.org/en/about/releases/
 [nodejs-pypi-license]: LICENSE
+[poetry-project]: https://python-poetry.org/docs/basic-usage/#project-setup
 [pypi]: https://pypi.org/project/nodejs-bin/
 [python-docs-subprocess]: https://docs.python.org/3/library/subprocess.html
 [python-docs-subprocess-call]: https://docs.python.org/3/library/subprocess.html#subprocess.call
@@ -194,3 +256,4 @@ This Python package is licensed under an [MIT license][nodejs-pypi-license].
 [python-docs-subprocess-popen]: https://docs.python.org/3/library/subprocess.html#subprocess.Popen
 [python-docs-subprocess-completed-process]: https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
 [python-docs-subprocess-popen-objects]: https://docs.python.org/3/library/subprocess.html#popen-objects
+[uv-project]: https://docs.astral.sh/uv/#projects
