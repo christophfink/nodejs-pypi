@@ -39,21 +39,21 @@ package manager that can use the [PyPi package repository][pypi] or supports
 
 For example, to use `pip` to install `nodejs-bin` from PyPi, use:
 
-```
+```shell
 pip install nodejs-bin
 ```
 
 Similarly, to install the package directly from GitHub, into an [initialised `uv`
 project][uv-project] directory, run:
 
-```
+```shell
 uv add nodejs-bin@git+https://github.com/christophfink/nodejs-pypi.git
 ```
 
 Finally, to add `nodejs-bin` to a [poetry project][poetry-project], using an
 https package URL, run:
 
-```
+```shell
 poetry add nodejs-bin@https://github.com/christophfink/nodejs-pypi/archive/refs/tags/v24.9.0.tar.gz
 ```
 
@@ -73,9 +73,15 @@ described above, already contain a reference to a tag.
 
 The following three commands are functionally equivalent:
 
-```
+```shell
 pip install nodejs-bin==22.20.0
+```
+
+```shell
 pip install nodejs-bin@git+https://github.com/christophfink/nodejs-bin.git@22.20.0
+```
+
+```shell
 pip install nodejs-bin@https://github.com/christophfink/nodejs-pypi/archive/refs/tags/v22.20.0.tar.gz
 ```
 
@@ -94,7 +100,7 @@ There are, however, cases where using the Node.js binaries installed by
 install shorthands for the command line utilities `node`, `npm`, and `npx` by
 adding the optional dependency group `cmd` to the package identifier:
 
-```
+```shell
 pip install 'nodejs-bin[cmd]'
 ```
 
@@ -106,20 +112,28 @@ pip install 'nodejs-bin[cmd]'
 
 To run `node` from the command line, use:
 
-```
+```shell
 python -m nodejs.node
 ```
 
-`npm` and `npx` are available as `nodejs.npm` and `nodejs.npx`:
+`npm`, `npx`, and `corepack` are available as `nodejs.npm`, `nodejs.npx`, and
+`nodejs.corepack`, respectively:
 
-```
+```shell
 python -m nodejs.npm
+```
+
+```shell
 python -m nodejs.npx
 ```
 
+```shell
+python -m nodejs.corepack
+```
+
 *For legacy reasons, the root module of the package can be called, as well. It
-wraps `node`. That means, `python -m nodejs` is equivalent to `python -m
-nodejs.node`.*
+wraps `node`.  
+That means, `python -m nodejs` is equivalent to `python -m nodejs.node`.*
 
 
 ### Python API Usage
@@ -127,16 +141,16 @@ nodejs.node`.*
 `node-bin` has a simple Python API that wraps the Node.js command line in a
 [Python `subprocess`][python-docs-subprocess].
 
-For `node`, `npm` and `npx` there are `.call()`, `.run()` and `.Popen()` methods
-that match the equivalent `subprocess` methods.
+For `node`, `npm`, `npx`, and `corepack` there are `.call()`, `.run()` and
+`.Popen()` methods that match the respective `subprocess` methods.
 
 
-#### `node.call()`, `npm.call()`, and `npx.call()`
+#### `node.call()`, `npm.call()`, `npx.call()`, and `corepack.call()`
 
 To run Node.js from a Python program and return the exit code:
 
 ```python
-from nodejs import node, npm, npx
+from nodejs import node, npm, npx, corepack
 
 # Run Node.js and return the exit code.
 node.call('script.js', 'arg1', …, **kwargs)
@@ -146,20 +160,23 @@ npm.call('command', 'arg1', …, **kwargs)
 
 # Run npx and return the exit code.
 npx.call('command', 'arg1', …, **kwargs)
+
+# Run corepack and return the exit code.
+corepack.call('command', 'arg1', …, **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
 [`subprocess.call()`][python-docs-subprocess-call], pass all `kwargs` through to
-`subprocess.call` and return the respective exit codes of the processes.
+`subprocess.call` and return the exit codes of the processes.
 
 
-#### `node.run()`, `npm.run()`, and `npx.run()`
+#### `node.run()`, `npm.run()`, `npx.run()`, `corepack.run()`
 
 To run Node.js from a Python program and return a
 [`CompletedProcess`][python-docs-subprocess-completed-process] object:
 
 ```python
-from nodejs import node, npm, npx
+from nodejs import node, npm, npx, corepack
 
 # Run Node.js and return a CompletedProcess object.
 node.run('script.js', 'arg1', …, **kwargs)
@@ -169,22 +186,25 @@ npm.run('command', 'arg1', …, **kwargs)
 
 # Run npx and return a CompletedProcess object.
 npx.run('command', 'arg1', …, **kwargs)
+
+# Run corepack and return a CompletedProcess object.
+corepack.run('command', 'arg1', …, **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
 [`subprocess.run()`][python-docs-subprocess-run], pass all `kwargs` through to
-`subprocess.run` and return the respective exit codes of the processes.
+`subprocess.run` and return the exit codes of the processes.
 
 
 
-#### `node.Popen()`, `npm.Popen()`, and `npx.Popen()`
+#### `node.Popen()`, `npm.Popen()`, `npx.Popen()`, and `corepack.Popen()`
 
 Additionally, to start a Node.js process and return a [`subprocess.Popen`
 object][python-docs-subprocess-popen-objects], you can use the `Popen(args,
 **kwargs)` functions:
 
 ```python
-from nodejs import node, npm, npx
+from nodejs import node, npm, npx, corepack
 
 # Start Node.js and return the Popen object.
 node_process = node.Popen('script.js', 'arg1', …, **kwargs)
@@ -194,13 +214,15 @@ npm_process = npm.Popen('command', 'arg1', …, **kwargs)
 
 # Start npx and return the Popen object.
 npx_process = npx.Popen('command', 'arg1', …, **kwargs)
+
+# Start corepack and return the Popen object.
+corepack_process = corepack.Popen('command', 'arg1', …, **kwargs)
 ```
 
 
 The `call(args, **kwargs)` functions wrap
 [`subprocess.Popen()`][python-docs-subprocess-Popen], pass all `kwargs` through
-to `subprocess.Popen` and return the respective [`Popen`
-objects][python-docs-subprocess-popen-objects].
+to `subprocess.Popen` and return [`Popen` objects][python-docs-subprocess-popen-objects].
 
 
 
