@@ -110,11 +110,15 @@ To run `node` from the command line, use:
 python -m nodejs.node
 ```
 
-`npm` and `npx` are available as `nodejs.npm` and `nodejs.npx`:
+`npm`, `npx`, and `corepack` are available as `nodejs.npm`, `nodejs.npx`, and
+`nodejs.corepack`, respectively:
 
 ```
 python -m nodejs.npm
+
 python -m nodejs.npx
+
+python -m nodejs.corepack
 ```
 
 *For legacy reasons, the root module of the package can be called, as well. It
@@ -127,16 +131,16 @@ nodejs.node`.*
 `node-bin` has a simple Python API that wraps the Node.js command line in a
 [Python `subprocess`][python-docs-subprocess].
 
-For `node`, `npm` and `npx` there are `.call()`, `.run()` and `.Popen()` methods
-that match the equivalent `subprocess` methods.
+For `node`, `npm`, `npx`, and `corepack` there are `.call()`, `.run()` and
+`.Popen()` methods that match the equivalent `subprocess` methods.
 
 
-#### `node.call()`, `npm.call()`, and `npx.call()`
+#### `node.call()`, `npm.call()`, `npx.call()`, and `corepack.call()`
 
 To run Node.js from a Python program and return the exit code:
 
 ```python
-from nodejs import node, npm, npx
+from nodejs import node, npm, npx, corepack
 
 # Run Node.js and return the exit code.
 node.call('script.js', 'arg1', …, **kwargs)
@@ -146,6 +150,9 @@ npm.call('command', 'arg1', …, **kwargs)
 
 # Run npx and return the exit code.
 npx.call('command', 'arg1', …, **kwargs)
+
+# Run corepack and return the exit code.
+corepack.call('command', 'arg1', …, **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
@@ -153,13 +160,13 @@ The `call(args, **kwargs)` functions wrap
 `subprocess.call` and return the respective exit codes of the processes.
 
 
-#### `node.run()`, `npm.run()`, and `npx.run()`
+#### `node.run()`, `npm.run()`, `npx.run()`, `corepack.run()`
 
 To run Node.js from a Python program and return a
 [`CompletedProcess`][python-docs-subprocess-completed-process] object:
 
 ```python
-from nodejs import node, npm, npx
+from nodejs import node, npm, npx, corepack
 
 # Run Node.js and return a CompletedProcess object.
 node.run('script.js', 'arg1', …, **kwargs)
@@ -169,6 +176,9 @@ npm.run('command', 'arg1', …, **kwargs)
 
 # Run npx and return a CompletedProcess object.
 npx.run('command', 'arg1', …, **kwargs)
+
+# Run corepack and return a CompletedProcess object.
+corepack.run('command', 'arg1', …, **kwargs)
 ```
 
 The `call(args, **kwargs)` functions wrap
@@ -177,14 +187,14 @@ The `call(args, **kwargs)` functions wrap
 
 
 
-#### `node.Popen()`, `npm.Popen()`, and `npx.Popen()`
+#### `node.Popen()`, `npm.Popen()`, `npx.Popen()`, and `corepack.Popen()`
 
 Additionally, to start a Node.js process and return a [`subprocess.Popen`
 object][python-docs-subprocess-popen-objects], you can use the `Popen(args,
 **kwargs)` functions:
 
 ```python
-from nodejs import node, npm, npx
+from nodejs import node, npm, npx, corepack
 
 # Start Node.js and return the Popen object.
 node_process = node.Popen('script.js', 'arg1', …, **kwargs)
@@ -194,6 +204,9 @@ npm_process = npm.Popen('command', 'arg1', …, **kwargs)
 
 # Start npx and return the Popen object.
 npx_process = npx.Popen('command', 'arg1', …, **kwargs)
+
+# Start corepack and return the Popen object.
+corepack_process = corepack.Popen('command', 'arg1', …, **kwargs)
 ```
 
 
