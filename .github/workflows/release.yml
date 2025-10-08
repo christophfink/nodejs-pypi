@@ -48,7 +48,7 @@ jobs:
           - linux-x64
           - linux-arm64
           - linux-x64-musl
-          - linux-arm64-musl
+          # - linux-arm64-musl  # not available for anything before v24.9.0
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
