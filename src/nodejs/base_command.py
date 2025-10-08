@@ -12,7 +12,10 @@ class BaseCommand:
 
     @property
     def _command(self):
-        raise NotImplementedError(f"Do not use {self.__class__.__name__} directly.")
+        raise NotImplementedError(
+            "Do not use BaseCommand directly. "
+            "Rather, inherit from it, and define the child class’ _command"
+        )
 
     def call(self, *args, **kwargs):
         """Run with the semantics of subprocess.call."""
@@ -32,6 +35,4 @@ class BaseCommand:
             args = args[0]
         return subprocess.Popen(self._command + list(args), **kwargs)
 
-    def main(self, *args):
-        """Provide a command line interface to this command."""
-        return self.call(*args)
+    main = call

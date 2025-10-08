@@ -9,11 +9,11 @@ __all__ = ["npx"]
 
 import sys
 
-from .command_that_might_be_a_script import CommandThatMightBeAScript
+from .maybe_script import MaybeScript
 from .node_path import NODE_PATH
 
 
-class Npx(CommandThatMightBeAScript):
+class Npx(MaybeScript):
     """Expose npx’s binary."""
 
     _command_name = "npx"

@@ -4,7 +4,7 @@
 
 
 __version__ = "v24.9.0"
-__all__ = []
+__all__ = ["__version__"]
 
 
 import sys
