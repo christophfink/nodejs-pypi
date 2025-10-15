@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-"""Base class for the commands that might be scripts (npm, npx, corepack)."""
+"""Base class for the commands that might be scripts (npm, npx)."""
 
 
 import functools
@@ -12,7 +12,7 @@ from .node_path import NODE_PATH
 
 
 class MaybeScript(BaseCommand):
-    """Base class for the commands that might be scripts (npm, npx, corepack)."""
+    """Base class for the commands that might be scripts (npm, npx)."""
 
     _command_name = None
     _script_name = None
