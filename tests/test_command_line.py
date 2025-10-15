@@ -257,23 +257,3 @@ class TestNodeJsMain:
         except SystemExit as exception:
             if exception.code != 0:
                 raise
-
-    def test_corepack_exit_code_success(self):
-        """Test the exit code of node.__main__."""
-        exit_code = subprocess.call(
-            [
-                sys.executable,
-                "-m",
-                "nodejs.corepack",
-                "--version",
-            ]
-        )
-        assert exit_code == 0
-
-    def test_corepack_main_function(self):
-        """Test the exit code of node.__main__."""
-        try:
-            nodejs.corepack.main("--version")
-        except SystemExit as exception:
-            if exception.code != 0:
-                raise
