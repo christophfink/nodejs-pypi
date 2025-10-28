@@ -86,26 +86,6 @@ pip install nodejs-bin@https://github.com/christophfink/nodejs-pypi/archive/refs
 ```
 
 
-### Command line shorthands
-
-Optionally, `nodejs-bin` can provide the commands `node`, `npm`, and `npx`. 
-
-**Warning:** these shorthands are not installed by default, as they collide with
-potentially already installed Node.js (e.g., at a system-wide level). To avoid
-collisions, it is preferred to run the modules’ `__main__`. To run `node`, for
-install, use `python -m nodejs.node`, [see below](#command-line-usage).
-
-There are, however, cases where using the Node.js binaries installed by
-`nodejs-bin` outside Python is convenient. If you have read the warning above,
-install shorthands for the command line utilities `node`, `npm`, and `npx` by
-adding the optional dependency group `cmd` to the package identifier:
-
-```shell
-pip install 'nodejs-bin[cmd]'
-```
-
-
-
 ## Quickstart
 
 ### Command line usage

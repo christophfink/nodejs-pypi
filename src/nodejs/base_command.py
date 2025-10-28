@@ -34,5 +34,3 @@ class BaseCommand:
         if len(args) == 1 and isinstance(args[0], list):
             args = args[0]
         return subprocess.Popen(self._command + list(args), **kwargs)
-
-    main = call

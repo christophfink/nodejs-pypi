@@ -31,11 +31,24 @@ license = "MIT"
 dynamic = ["version"]
 
 [project.optional-dependencies]
-cmd = ["nodejs-cmd"]
-dev = ["black", "flake8", "flake8-bugbear", "flake8-pyproject", "isort",
-       "pydocstyle", "pylint"]
-tests = ["pytest", "pytest-cov"]
+dev = [
+    "black",
+    "flake8",
+    "flake8-bugbear",
+    "flake8-pyproject",
+    "isort",
+    "pydocstyle",
+    "pylint",
+]
+tests = [
+    "pytest",
+    "pytest-cov",
+]
 
+[project.scripts]
+node = "nodejs.node:main"
+npm = "nodejs.npm:main"
+npx = "nodejs.npx:main"
 
 [project.urls]
 Repository = "https://github.com/christophfink/nodejs-bin.git"

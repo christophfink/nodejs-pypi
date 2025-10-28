@@ -35,5 +35,10 @@ class Node(BaseCommand):
 node = Node()
 
 
+def main():
+    """Run command line."""
+    sys.exit(node.call(*sys.argv[1:]))
+
+
 if __name__ == "__main__":
-    sys.exit(node.main(*sys.argv[1:]))
+    main()
