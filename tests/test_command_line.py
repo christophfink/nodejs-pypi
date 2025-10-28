@@ -255,3 +255,48 @@ class TestNodeJsMain:
             ]
         )
         assert exit_code == 0
+
+    def test_node_main_function(self):
+        """Test the node main() function."""
+        from nodejs.node import main
+
+        sys_argv = sys.argv
+        sys.argv = [sys.argv[0]] + ["--version"]
+
+        try:
+            main()
+        except SystemExit as exception:
+            if exception.code != 0:
+                raise
+        finally:
+            sys.argv = sys_argv
+
+    def test_npm_main_function(self):
+        """Test the npm main() function."""
+        from nodejs.npm import main
+
+        sys_argv = sys.argv
+        sys.argv = [sys.argv[0]] + ["--version"]
+
+        try:
+            main()
+        except SystemExit as exception:
+            if exception.code != 0:
+                raise
+        finally:
+            sys.argv = sys_argv
+
+    def test_npx_main_function(self):
+        """Test the npx main() function."""
+        from nodejs.npx import main
+
+        sys_argv = sys.argv
+        sys.argv = [sys.argv[0]] + ["--version"]
+
+        try:
+            main()
+        except SystemExit as exception:
+            if exception.code != 0:
+                raise
+        finally:
+            sys.argv = sys_argv
