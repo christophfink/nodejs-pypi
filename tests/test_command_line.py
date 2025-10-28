@@ -40,22 +40,6 @@ class TestNodeJsMain:
         )
         assert exit_code == 1
 
-    def test_main_function(self):
-        """Test the exit code of node.__main__."""
-        try:
-            nodejs.node.main("--version")
-        except SystemExit as exception:
-            if exception.code != 0:
-                raise
-
-    def test_node_main_function(self):
-        """Test the exit code of node.__main__."""
-        try:
-            nodejs.node.main("--version")
-        except SystemExit as exception:
-            if exception.code != 0:
-                raise
-
     def test_main_version(self, capfd):
         """Test the output of node --version."""
         exit_code = subprocess.call(
@@ -230,14 +214,6 @@ class TestNodeJsMain:
         )
         assert exit_code == 0
 
-    def test_npm_main_function(self):
-        """Test the exit code of node.__main__."""
-        try:
-            nodejs.npm.main("--version")
-        except SystemExit as exception:
-            if exception.code != 0:
-                raise
-
     def test_npx_exit_code_success(self):
         """Test the exit code of node.__main__."""
         exit_code = subprocess.call(
@@ -250,10 +226,32 @@ class TestNodeJsMain:
         )
         assert exit_code == 0
 
-    def test_npx_main_function(self):
-        """Test the exit code of node.__main__."""
-        try:
-            nodejs.npx.main("--version")
-        except SystemExit as exception:
-            if exception.code != 0:
-                raise
+    def test_node_entry_point(self):
+        """Test the node entry point."""
+        exit_code = subprocess.call(
+            [
+                "node",
+                "--version",
+            ]
+        )
+        assert exit_code == 0
+
+    def test_npm_entry_point(self):
+        """Test the npm entry point."""
+        exit_code = subprocess.call(
+            [
+                "npm",
+                "--version",
+            ]
+        )
+        assert exit_code == 0
+
+    def test_npx_entry_point(self):
+        """Test the npx entry point."""
+        exit_code = subprocess.call(
+            [
+                "npx",
+                "--version",
+            ]
+        )
+        assert exit_code == 0

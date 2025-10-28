@@ -23,5 +23,10 @@ class Npm(MaybeScript):
 npm = Npm()
 
 
+def main():
+    """Run command line."""
+    sys.exit(npm.call(*sys.argv[1:]))
+
+
 if __name__ == "__main__":
-    sys.exit(npm.main(*sys.argv[1:]))
+    main()

@@ -23,5 +23,10 @@ class Npx(MaybeScript):
 npx = Npx()
 
 
+def main():
+    """Run command line."""
+    sys.exit(npx.call(*sys.argv[1:]))
+
+
 if __name__ == "__main__":
-    sys.exit(npx.main(*sys.argv[1:]))
+    main()

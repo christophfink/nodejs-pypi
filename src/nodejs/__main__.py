@@ -5,8 +5,6 @@
 
 
 if __name__ == "__main__":
-    import sys
+    from .node import main
 
-    from .node import node
-
-    sys.exit(node.main(*sys.argv[1:]))
+    main()
