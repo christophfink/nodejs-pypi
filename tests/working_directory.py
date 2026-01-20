@@ -3,7 +3,6 @@
 
 """A working directory context manager."""
 
-
 import os
 import pathlib
 

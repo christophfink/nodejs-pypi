@@ -3,7 +3,6 @@
 
 """Base class for the commands that might be scripts (npm, npx)."""
 
-
 import functools
 
 from .base_command import BaseCommand

@@ -3,7 +3,6 @@
 
 """Test nodejs.npx."""
 
-
 import re
 
 import pytest

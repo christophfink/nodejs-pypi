@@ -3,7 +3,6 @@
 
 """Test nodejs.maybe_script.MaybeScript."""
 
-
 import pytest
 
 import nodejs

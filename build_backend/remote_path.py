@@ -3,7 +3,6 @@
 
 """A pathlib.Path to a cached copy of a remote resource."""
 
-
 import datetime
 import pathlib
 

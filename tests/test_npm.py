@@ -3,7 +3,6 @@
 
 """Test nodejs.npm."""
 
-
 import re
 
 import pytest

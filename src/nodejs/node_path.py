@@ -3,7 +3,6 @@
 
 """A pathlib.Path pointing to our copy of node."""
 
-
 import importlib.resources
 import pathlib
 
