@@ -3,7 +3,6 @@
 
 """Expose npx’s binary."""
 
-
 __all__ = ["npx"]
 
 

@@ -3,7 +3,6 @@
 
 """Expose node’s binary."""
 
-
 __all__ = ["node"]
 
 

@@ -3,7 +3,6 @@
 
 """Expose npm’s binary."""
 
-
 __all__ = ["npm"]
 
 

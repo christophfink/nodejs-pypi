@@ -10,7 +10,6 @@ These lookup tables are based on information from:
 
 """
 
-
 import os
 import platform
 

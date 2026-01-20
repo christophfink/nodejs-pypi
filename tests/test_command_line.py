@@ -3,7 +3,6 @@
 
 """Test nodejs.__main__."""
 
-
 import subprocess
 import sys
 

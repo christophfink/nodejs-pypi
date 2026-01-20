@@ -3,7 +3,6 @@
 
 """A base class for the commands exposed by nodejs."""
 
-
 import subprocess
 
 

@@ -3,7 +3,6 @@
 
 """Test nodejs.node."""
 
-
 import pytest
 
 import nodejs
