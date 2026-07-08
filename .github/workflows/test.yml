@@ -21,6 +21,11 @@ jobs:
     uses: ./.github/workflows/lint.yml
     secrets: inherit
 
+  fail-for-debugging:
+    runs-on: ubuntu-latest
+    steps:
+      - run: /usr/bin/false
+
   test-on-default-runners:
     name: Run tests (${{ matrix.os }}, Python ${{ matrix.python_version }})
     needs: lint
