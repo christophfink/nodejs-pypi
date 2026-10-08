@@ -2,7 +2,7 @@
 
 """Wraps the Node.js JavaScript runtime environment."""
 
-__version__ = "v26.10.0"
+__version__ = "v26.11.1"
 
 __all__ = ["__version__"]
 
