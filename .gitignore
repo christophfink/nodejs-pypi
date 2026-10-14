@@ -29,3 +29,7 @@ junit.xml
 src/**/_node/*
 src/**/_node/**
 !src/**/_node/.keep
+
+node_modules/
+package-lock.json
+package.json
